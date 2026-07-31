@@ -1,0 +1,34 @@
+# Build folders
+Debug/
+Release/
+
+# STM32CubeIDE generated folders
+.settings/
+
+# User-specific project settings
+*.launch
+
+# Object and binary files
+*.o
+*.d
+*.elf
+*.bin
+*.hex
+*.map
+*.list
+*.su
+
+# Temporary files
+*.tmp
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code (if you use it)
+.vscode/
+
+# Python cache (if you use Python scripts later)
+__pycache__/
+*.pyc
