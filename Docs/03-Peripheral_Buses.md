@@ -171,7 +171,7 @@ Simplified:
 
 ---
 
-## 5. Why are AHB and APB separated?
+## 5. Why Architectural Separation between AHB and APB Exists veya Design Trade-offs Between AHB and APB
 
 Not every peripheral requires the same bus architecture.
 
@@ -229,8 +229,7 @@ For example, when the CPU accesses USART2:
 The bridge allows an AHB master to access a peripheral that is implemented on
 the APB bus.
 
-The bridge may also be involved in clock-domain or timing adaptation depending
-on the implementation, but protocol conversion is the fundamental purpose.
+While the bridge can also manage clock domain crossing and bus timing adaptation, its primary role remains protocol translation between AHB and APB.
 
 The APB clock can also be configured differently from the AHB clock.
 
