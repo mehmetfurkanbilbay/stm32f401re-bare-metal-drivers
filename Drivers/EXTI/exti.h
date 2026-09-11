@@ -57,7 +57,7 @@ typedef struct {
 typedef enum {
 	EXTI_TRIGGER_RISING  = 0x00,
 	EXTI_TRIGGER_FALLING = 0x01,
-	EXTI_TIGGER_BOTH 	 = 0x02
+	EXTI_TRIGGER_BOTH 	 = 0x02
 }EXTI_Trigger_t;
 
 typedef struct {

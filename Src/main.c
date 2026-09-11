@@ -18,12 +18,64 @@
 
 #include <stdint.h>
 
-#if !defined(__SOFT_FP__) && defined(__ARM_FP)
-  #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
-#endif
+#include "gpio.h"
+#include "rcc.h"
+#include "exti.h"
+#include "nvic.h"
+
+
+
 
 int main(void)
 {
-    /* Loop forever */
-	for(;;);
+	/* CLOCK ACMA */
+	RCC_GPIO_ClockEnable(GPIOA);
+	RCC_GPIO_ClockEnable(GPIOC);
+
+	GPIO_Config_t LedAyarla = {
+		.pin = 5,
+		.mode = GPIO_MODE_OUTPUT,
+		.otype = GPIO_OTYPE_PP,
+		.speed = GPIO_SPEED_LOW,
+		.pupd = GPIO_PUPD_NONE
+
+	};
+
+	GPIO_Config_t ButonAyarla = {
+			.pin = 13,
+			.mode = GPIO_MODE_INPUT,
+			.otype = GPIO_OTYPE_PP,
+			.speed = GPIO_SPEED_LOW,
+			.pupd = GPIO_PUPD_NONE
+
+		};
+
+	GPIO_Init(GPIOA,&LedAyarla);
+	GPIO_Init(GPIOC,&ButonAyarla);
+
+
+	/* INTERRUPT */
+
+	EXTI_Config_t KesmeConfig = {
+			.port = GPIOC,
+			.pin = 13,
+			.trigger = EXTI_TRIGGER_FALLING
+	};
+
+
+	EXTI_Init(&KesmeConfig);
+	NVIC_EnableIRQ(EXTI15_10_IRQn);
+
+
+	for(;;){
+		// interrupt-driven çalışıyoruz, burada hiçbir şey yapmamıza gerek yok
+	}
+
+}
+
+void EXTI15_10_IRQHandler(void){
+	if (EXTI_GetPending(13)){
+		GPIO_TogglePin(GPIOA,5);
+		EXTI_ClearPending(13);
+	}
 }
