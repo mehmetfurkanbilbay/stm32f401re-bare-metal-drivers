@@ -56,4 +56,15 @@ typedef struct {
     uint32_t         peripheralAddr; // e.g. &USART2->DR
     uint32_t         memoryAddr;     // e.g. address of your buffer
     uint16_t         dataCount;      // number of items to transfer
-    uint8_t          memoryIncrement; // 1
+    uint8_t          memoryIncrement; // 1 = increment memory address each transfer
+    uint8_t          circularMode;    // 1 = auto-restart after dataCount reached
+} DMA_Config_t;
+
+/* ==================== BASIC DMA FUNCTIONS ==================== */
+void DMA_Init(DMA_TypeDef *dma, uint8_t streamNum, DMA_Config_t *config);
+void DMA_Enable(DMA_TypeDef *dma, uint8_t streamNum);
+void DMA_Disable(DMA_TypeDef *dma, uint8_t streamNum);
+uint8_t DMA_IsTransferComplete(DMA_TypeDef *dma, uint8_t streamNum);
+void DMA_ClearTransferComplete(DMA_TypeDef *dma, uint8_t streamNum);
+
+#endif
